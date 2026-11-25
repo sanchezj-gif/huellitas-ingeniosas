@@ -1,0 +1,70 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Huellitas · Panel del equipo</title><style>
+:root{--beige:#f4ecdf;--salvia:#8a9e7b;--salvia-osc:#52664a;--cafe:#6b4a34;--blanco:#fff;--linea:#e3d6c2}
+*{box-sizing:border-box}body{margin:0;background:var(--beige);color:var(--cafe);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px 14px 48px}header{text-align:center;padding:8px 0 14px}
+.logo{width:150px;height:auto}h1{margin:4px 0;font-size:1.65rem;letter-spacing:.04em}header p{margin:4px 0}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:16px;margin-bottom:12px}
+fieldset.card{min-width:0}legend{float:left;width:100%;font-weight:600;margin-bottom:12px;padding:0}legend+.ops{clear:both}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ops label{position:relative}.ops input{position:absolute;opacity:0}
+.ops span{display:block;text-align:center;padding:13px;border:2px solid var(--linea);border-radius:12px;font-weight:700;cursor:pointer}
+.ops input:checked+span{background:var(--salvia-osc);border-color:var(--salvia-osc);color:#fff}
+.ops input[value="0"]:checked+span{background:var(--cafe);border-color:var(--cafe)}
+.ops input:focus-visible+span{outline:3px solid var(--cafe);outline-offset:2px}
+.falta{border:2px solid #b4533c}
+label.campo{display:block;font-weight:600;margin-bottom:10px}
+input[type=text],input[type=email],input[type=password],select{width:100%;margin-top:5px;padding:12px;border:1px solid var(--linea);border-radius:10px;font:inherit;background:#fff;color:var(--cafe)}
+button{width:100%;padding:15px;border:0;border-radius:12px;background:var(--salvia-osc);color:#fff;font:700 1.05rem system-ui,sans-serif;cursor:pointer}
+button.sec{background:var(--cafe)}button:disabled{opacity:.6}
+.error{color:#9c3a24;font-weight:600;text-align:center;min-height:1.4em}
+.progreso{position:sticky;top:0;background:var(--beige);padding:8px 0;z-index:2;font-size:.9rem;text-align:center}
+.barra{height:10px;background:#e3d6c2;border-radius:9px;overflow:hidden}.barra i{display:block;height:100%;background:var(--salvia);width:0}
+.nota{font-size:4rem;font-weight:800;color:var(--salvia-osc);line-height:1.1}.centro{text-align:center}[hidden]{display:none!important}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpis .card{margin:0 0 2px;text-align:center}.kpis b{display:block;font-size:2rem;color:var(--salvia-osc)}h2{font-size:1.05rem;margin:0 0 12px}.fila{margin-bottom:10px}.fila div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:.9rem;margin-bottom:3px}.fila b{white-space:nowrap}.tabla{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:7px 5px;border-bottom:1px solid var(--linea)}.acciones{display:grid;gap:10px}</style></head><body><main><header><svg viewBox="0 0 160 100" class="logo" role="img" aria-label="Casita de perro y huella"><path d="M12 48 55 12l43 36" fill="none" stroke="#6b4a34" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 46v44h66V46L55 19z" fill="#e8d9bf"/><path d="M40 90V70a15 15 0 0 1 30 0v20z" fill="#6b4a34"/><g fill="#8a9e7b"><ellipse cx="127" cy="72" rx="17" ry="14"/><ellipse cx="106" cy="55" rx="7" ry="9"/><ellipse cx="119" cy="43" rx="7" ry="10"/><ellipse cx="136" cy="43" rx="7" ry="10"/><ellipse cx="149" cy="55" rx="7" ry="9"/></g></svg><h1>HUELLITAS INGENIOSAS</h1><p>Panel del equipo</p></header>
+<form id="login" class="card"><label class="campo">Correo<input type="email" id="correo" required autocomplete="username"></label><label class="campo">Contraseña<input type="password" id="clave" required autocomplete="current-password"></label><p class="error" id="error" role="alert"></p><button>Entrar</button></form>
+<div id="panel" hidden>
+<div class="kpis"><div class="card"><small>Evaluaciones</small><b id="k-n"></b></div><div class="card"><small>Promedio</small><b id="k-prom"></b></div><div class="card"><small>Máxima</small><b id="k-max"></b></div><div class="card"><small>Mínima</small><b id="k-min"></b></div></div>
+<div class="card"><h2>Distribución de calificaciones</h2><div id="g-notas"></div></div>
+<div class="card"><h2>Cumplimiento por criterio</h2><div id="g-crit"></div></div>
+<div class="card"><h2>Quién evaluó</h2><div id="g-tipo"></div></div>
+<div class="card"><h2>Respuestas</h2><div class="tabla"><table><thead><tr><th>Fecha</th><th>Nombre</th><th>Tipo</th><th>Nota</th></tr></thead><tbody id="filas"></tbody></table></div></div>
+<div class="acciones"><button id="csv">Descargar CSV</button><button class="sec" id="act">Actualizar</button><button class="sec" id="salir">Cerrar sesión</button></div></div></main><script>
+const URL_SB="https://gdvphohikrzvqsaghxxd.supabase.co",KEY="sb_publishable_fvS8ek6Kx89RS6LF7ZtKFg__wAh4GB2",PREG=["¿Se presentó claramente el objetivo del proyecto?", "¿La casa para perro tiene un diseño funcional?", "¿Los materiales fueron seleccionados adecuadamente?", "¿La estructura es firme y segura?", "¿El producto presenta buenos acabados?", "¿Se explicó el proceso de fabricación?", "¿Se presentaron los costos de producción y el precio de venta?", "¿Se explicó el punto de equilibrio?", "¿Se mostraron gráficas de producción y ventas?", "¿El equipo explicó claramente el proyecto?"];
+const $=s=>document.querySelector(s);
+
+let token=null;try{token=sessionStorage.getItem('hi_token')}catch(e){}
+let datos=[];
+const salir=m=>{token=null;datos=[];try{sessionStorage.removeItem('hi_token')}catch(e){}$('#panel').hidden=true;$('#login').hidden=false;$('#error').textContent=m||''};
+const get=async(ruta,extra={})=>{const r=await fetch(URL_SB+'/rest/v1/'+ruta,{headers:{apikey:KEY,Authorization:'Bearer '+token,...extra}});if(!r.ok)throw new Error(r.status);return r.json()};
+function barras(id,items){const c=$(id);c.textContent='';for(const [nombre,valor,pct] of items){const f=document.createElement('div');f.className='fila';f.innerHTML='<div><span></span><b></b></div><div class="barra"><i></i></div>';f.querySelector('span').textContent=nombre;f.querySelector('b').textContent=valor;f.querySelector('i').style.width=pct+'%';c.append(f)}}
+const fecha=s=>new Date(s).toLocaleString('es-MX',{dateStyle:'short',timeStyle:'short'});
+async function cargar(){
+ try{
+  if(!(await get('huellitas_admins?select=user_id')).length)return salir('Esta cuenta no tiene permiso para ver el panel.');
+  let todo=[],desde=0,lote;
+  do{lote=await get('huellitas_evaluaciones?select=*&order=creado_en.desc,id',{Range:desde+'-'+(desde+999)});todo=todo.concat(lote);desde+=1000}while(lote.length===1000);
+  datos=todo;
+ }catch(e){return salir('La sesión terminó o no hay conexión. Vuelve a entrar.')}
+ $('#login').hidden=true;$('#panel').hidden=false;
+ const n=datos.length,t=datos.map(d=>d.total),p=x=>n?Math.round(x*100/n):0;
+ $('#k-n').textContent=n;
+ $('#k-prom').textContent=n?(t.reduce((a,b)=>a+b,0)/n).toFixed(1):'—';
+ $('#k-max').textContent=n?Math.max(...t):'—';$('#k-min').textContent=n?Math.min(...t):'—';
+ barras('#g-notas',[['90 a 100',90,100],['70 a 80',70,80],['50 a 60',50,60],['0 a 40',0,40]].map(([l,a,b])=>{const c=t.filter(v=>v>=a&&v<=b).length;return[l,c,p(c)]}));
+ barras('#g-crit',PREG.map((q,i)=>{const c=datos.filter(d=>d['p'+(i+1)]).length;return[(i+1)+'. '+q,p(c)+'%',p(c)]}));
+ barras('#g-tipo',['Profesor','Estudiante','Visitante',null].map(k=>{const c=datos.filter(d=>d.tipo===k).length;return[k||'Sin indicar',c,p(c)]}));
+ const tb=$('#filas');tb.textContent='';
+ for(const d of datos){const tr=tb.insertRow();[fecha(d.creado_en),d.nombre||'Anónimo',d.tipo||'—',d.total].forEach(v=>tr.insertCell().textContent=v)}
+}
+$('#login').addEventListener('submit',async e=>{e.preventDefault();$('#error').textContent='';
+ try{const r=await fetch(URL_SB+'/auth/v1/token?grant_type=password',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json'},body:JSON.stringify({email:$('#correo').value.trim(),password:$('#clave').value})});
+  const j=await r.json();if(!r.ok)return $('#error').textContent='Correo o contraseña incorrectos.';
+  token=j.access_token;try{sessionStorage.setItem('hi_token',token)}catch(e){}$('#clave').value='';cargar();
+ }catch(err){$('#error').textContent='Sin conexión. Intenta de nuevo.'}});
+$('#act').onclick=cargar;$('#salir').onclick=()=>salir();
+$('#csv').onclick=()=>{
+ const esc=v=>{let s=String(v??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+ const filas=[['Fecha','Nombre','Tipo',...PREG,'Total','Cumplimiento %'],...datos.map(d=>[fecha(d.creado_en),d.nombre,d.tipo,...PREG.map((_,i)=>d['p'+(i+1)]?'Sí':'No'),d.total,d.total])];
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+filas.map(f=>f.map(esc).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='huellitas_evaluaciones.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+if(token)cargar();
+
+</script></body></html>

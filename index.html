@@ -1,0 +1,47 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Huellitas Ingeniosas · Evaluación</title><style>
+:root{--beige:#f4ecdf;--salvia:#8a9e7b;--salvia-osc:#52664a;--cafe:#6b4a34;--blanco:#fff;--linea:#e3d6c2}
+*{box-sizing:border-box}body{margin:0;background:var(--beige);color:var(--cafe);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px 14px 48px}header{text-align:center;padding:8px 0 14px}
+.logo{width:150px;height:auto}h1{margin:4px 0;font-size:1.65rem;letter-spacing:.04em}header p{margin:4px 0}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:16px;margin-bottom:12px}
+fieldset.card{min-width:0}legend{float:left;width:100%;font-weight:600;margin-bottom:12px;padding:0}legend+.ops{clear:both}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ops label{position:relative}.ops input{position:absolute;opacity:0}
+.ops span{display:block;text-align:center;padding:13px;border:2px solid var(--linea);border-radius:12px;font-weight:700;cursor:pointer}
+.ops input:checked+span{background:var(--salvia-osc);border-color:var(--salvia-osc);color:#fff}
+.ops input[value="0"]:checked+span{background:var(--cafe);border-color:var(--cafe)}
+.ops input:focus-visible+span{outline:3px solid var(--cafe);outline-offset:2px}
+.falta{border:2px solid #b4533c}
+label.campo{display:block;font-weight:600;margin-bottom:10px}
+input[type=text],input[type=email],input[type=password],select{width:100%;margin-top:5px;padding:12px;border:1px solid var(--linea);border-radius:10px;font:inherit;background:#fff;color:var(--cafe)}
+button{width:100%;padding:15px;border:0;border-radius:12px;background:var(--salvia-osc);color:#fff;font:700 1.05rem system-ui,sans-serif;cursor:pointer}
+button.sec{background:var(--cafe)}button:disabled{opacity:.6}
+.error{color:#9c3a24;font-weight:600;text-align:center;min-height:1.4em}
+.progreso{position:sticky;top:0;background:var(--beige);padding:8px 0;z-index:2;font-size:.9rem;text-align:center}
+.barra{height:10px;background:#e3d6c2;border-radius:9px;overflow:hidden}.barra i{display:block;height:100%;background:var(--salvia);width:0}
+.nota{font-size:4rem;font-weight:800;color:var(--salvia-osc);line-height:1.1}.centro{text-align:center}[hidden]{display:none!important}
+</style></head><body><main><header><svg viewBox="0 0 160 100" class="logo" role="img" aria-label="Casita de perro y huella"><path d="M12 48 55 12l43 36" fill="none" stroke="#6b4a34" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 46v44h66V46L55 19z" fill="#e8d9bf"/><path d="M40 90V70a15 15 0 0 1 30 0v20z" fill="#6b4a34"/><g fill="#8a9e7b"><ellipse cx="127" cy="72" rx="17" ry="14"/><ellipse cx="106" cy="55" rx="7" ry="9"/><ellipse cx="119" cy="43" rx="7" ry="10"/><ellipse cx="136" cy="43" rx="7" ry="10"/><ellipse cx="149" cy="55" rx="7" ry="9"/></g></svg><h1>HUELLITAS INGENIOSAS</h1><p>Evalúa nuestra casa de madera para perros pequeños</p></header>
+<form id="form" novalidate>
+<div class="card"><label class="campo">Tu nombre (opcional)<input type="text" id="nombre" maxlength="80" autocomplete="name"></label>
+<label class="campo">Eres (opcional)<select id="tipo"><option value="">Selecciona…</option><option>Profesor</option><option>Estudiante</option><option>Visitante</option></select></label></div>
+<div class="progreso"><div class="barra"><i id="avance"></i></div><span id="cuenta">0 de 10 respondidas</span></div>
+<fieldset class="card" id="f1"><legend>1. ¿Se presentó claramente el objetivo del proyecto?</legend><div class="ops"><label><input type="radio" name="p1" value="1" required><span>Sí</span></label><label><input type="radio" name="p1" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f2"><legend>2. ¿La casa para perro tiene un diseño funcional?</legend><div class="ops"><label><input type="radio" name="p2" value="1" required><span>Sí</span></label><label><input type="radio" name="p2" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f3"><legend>3. ¿Los materiales fueron seleccionados adecuadamente?</legend><div class="ops"><label><input type="radio" name="p3" value="1" required><span>Sí</span></label><label><input type="radio" name="p3" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f4"><legend>4. ¿La estructura es firme y segura?</legend><div class="ops"><label><input type="radio" name="p4" value="1" required><span>Sí</span></label><label><input type="radio" name="p4" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f5"><legend>5. ¿El producto presenta buenos acabados?</legend><div class="ops"><label><input type="radio" name="p5" value="1" required><span>Sí</span></label><label><input type="radio" name="p5" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f6"><legend>6. ¿Se explicó el proceso de fabricación?</legend><div class="ops"><label><input type="radio" name="p6" value="1" required><span>Sí</span></label><label><input type="radio" name="p6" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f7"><legend>7. ¿Se presentaron los costos de producción y el precio de venta?</legend><div class="ops"><label><input type="radio" name="p7" value="1" required><span>Sí</span></label><label><input type="radio" name="p7" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f8"><legend>8. ¿Se explicó el punto de equilibrio?</legend><div class="ops"><label><input type="radio" name="p8" value="1" required><span>Sí</span></label><label><input type="radio" name="p8" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f9"><legend>9. ¿Se mostraron gráficas de producción y ventas?</legend><div class="ops"><label><input type="radio" name="p9" value="1" required><span>Sí</span></label><label><input type="radio" name="p9" value="0"><span>No</span></label></div></fieldset><fieldset class="card" id="f10"><legend>10. ¿El equipo explicó claramente el proyecto?</legend><div class="ops"><label><input type="radio" name="p10" value="1" required><span>Sí</span></label><label><input type="radio" name="p10" value="0"><span>No</span></label></div></fieldset>
+<p class="error" id="error" role="alert"></p><button id="enviar">Enviar evaluación</button></form>
+<section id="fin" class="card centro" hidden tabindex="-1"><h2>¡Gracias por tu participación! 🐾</h2><p>Tu calificación</p><div class="nota" id="nota"></div><p>de 100 puntos</p><div class="barra"><i id="pct-barra"></i></div><p id="pct"></p><button class="sec" id="otra" type="button">Evaluar otra vez (otra persona)</button></section></main><script>
+const URL_SB="https://gdvphohikrzvqsaghxxd.supabase.co",KEY="sb_publishable_fvS8ek6Kx89RS6LF7ZtKFg__wAh4GB2",PREG=["¿Se presentó claramente el objetivo del proyecto?", "¿La casa para perro tiene un diseño funcional?", "¿Los materiales fueron seleccionados adecuadamente?", "¿La estructura es firme y segura?", "¿El producto presenta buenos acabados?", "¿Se explicó el proceso de fabricación?", "¿Se presentaron los costos de producción y el precio de venta?", "¿Se explicó el punto de equilibrio?", "¿Se mostraron gráficas de producción y ventas?", "¿El equipo explicó claramente el proyecto?"];
+const $=s=>document.querySelector(s);
+
+const form=$('#form');
+form.addEventListener('change',e=>{const n=form.querySelectorAll('input:checked').length;$('#avance').style.width=n*10+'%';$('#cuenta').textContent=n+' de 10 respondidas';e.target.closest('fieldset')?.classList.remove('falta');if(n===10)$('#error').textContent=''});
+form.addEventListener('submit',async e=>{e.preventDefault();
+ const data={nombre:$('#nombre').value.trim()||null,tipo:$('#tipo').value||null};let faltan=[],total=0;
+ for(let i=1;i<=10;i++){const r=form.querySelector(`input[name=p${i}]:checked`);const f=$('#f'+i);f.classList.toggle('falta',!r);if(!r){faltan.push(i);continue}data['p'+i]=r.value==='1';total+=data['p'+i]?10:0}
+ if(faltan.length){$('#error').textContent='Falta responder: '+faltan.join(', ');$('#f'+faltan[0]).scrollIntoView({behavior:'smooth',block:'center'});return}
+ const b=$('#enviar');b.disabled=true;b.textContent='Guardando…';$('#error').textContent='';
+ try{const r=await fetch(URL_SB+'/rest/v1/huellitas_evaluaciones',{method:'POST',headers:{apikey:KEY,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(data)});
+  if(!r.ok)throw new Error(r.status);
+  form.hidden=true;$('#fin').hidden=false;$('#nota').textContent=total;$('#pct').textContent='Porcentaje de cumplimiento: '+total+'%';$('#pct-barra').style.width=total+'%';scrollTo(0,0);$('#fin').focus();
+ }catch(err){$('#error').textContent='No se pudo guardar. Revisa tu internet y vuelve a enviar.'}
+ b.disabled=false;b.textContent='Enviar evaluación';});
+$('#otra').onclick=()=>{form.reset();$('#avance').style.width=0;$('#cuenta').textContent='0 de 10 respondidas';$('#fin').hidden=true;form.hidden=false;scrollTo(0,0)};
+
+</script></body></html>
